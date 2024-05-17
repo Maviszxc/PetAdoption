@@ -8,3 +8,7 @@ import requests
 def home(request):
 
     return render(request, 'home/index.html')
+
+def display(request):
+
+    return render(request, 'home/display.html')

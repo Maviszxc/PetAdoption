@@ -24,14 +24,9 @@ const petDocument = new Schema({
     required: [true, "Description is needed"],
   },
 
-  quantity: {
-    type: Number,
-    required: [true, "Quantity is needed"],
-  },
-
   isAdopted: { // active
     type: Boolean,
-    default: true,
+    default: false,
   }
 });
 

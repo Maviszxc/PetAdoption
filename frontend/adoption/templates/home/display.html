@@ -1,0 +1,61 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet List</title>
+    <link rel="stylesheet" href="{% static 'home/css/display.css' %}">
+</head>
+<body>
+
+    <!-- All Pets -->
+
+    <h1>Pet List</h1>
+    <!-- <div id="pet-list"></div>  -->
+
+
+
+
+    <!-- Search Pets by Breed -->
+
+    <div>  
+      <label for="breed-search">Search by Breed:</label>
+        <input type="text" id="breed-search" placeholder="Enter breed">
+        <button id="search-button">Search</button>
+    </div>
+    <div class="search-container">
+    <div id="search-display"></div>
+    </div>
+
+
+
+    <!--  Add Pet -->
+
+    <div>
+        <h2>Add a New Pet</h2>
+        <form id="add-pet-form">
+            <label for="breed">Breed:</label>
+            <input type="text" id="breed" name="breed" required><br>
+            <label for="gender">Gender:</label>
+            <input type="text" id="gender" name="gender" required><br>
+            <label for="age">Age:</label>
+            <input type="text" id="age" name="age" required><br>
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" required><br>
+            <label for="isAdopted">Is Adopted:</label>
+            <input type="checkbox" id="isAdopted" name="isAdopted"><br>
+            <button type="submit">Add Pet</button>
+        </form>
+    </div>
+
+  
+
+    <script src="{% static 'home/scripts/allpets.js' %}"></script>
+    <script src="{% static 'home/scripts/searchPets.js' %}"></script>
+    <script src="{% static 'home/scripts/createPets.js' %}"></script>
+
+
+</body>
+</html>
