@@ -1,59 +1,79 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 20px;
-    padding: 10;
+    padding: 10px;
     background-color: #f0f3f8;
 }
 
 header {
-    background-color: #ffb6c1; /* Pastel pink */
+    background-color: #ffb6c1;
     color: #ffffff;
     text-align: center;
     padding: 20px 0;
 }
 
 h1 {
-    margin: 10;
+    margin: 0;
 }
 
 .container {
     max-width: 800px;
-    margin: 20px auto; /* Adding margin to top and bottom, auto left and right */
+    margin: 0 auto;
     padding: 20px;
-    margin-left: 30px; /* Additional margin on the left */
-    margin-right: 30px; /* Additional margin on the right */
 }
 
 .search-container {
     margin-top: 20px;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: row;
+    align-items: center; /* Align items in a row */
+    justify-content: flex-start; /* Align items to the left */
+}
+
+.input-container {
+    width: 30%; /* Set the width to half of the container */
+    margin-right: 10px; /* Add margin to space out input and button */
+}
+
+input[type="text"] {
+    width: 20%; /* Fill the entire width of the input container */
+}
+
+button#search-button {
+    padding: 10px 15px; /* Adjust padding for the button */
+    margin: 30px;
 }
 
 
 label {
     font-weight: bold;
+    margin-right: 10px; /* Add margin to space out label and input */
 }
 
-input[type="text"] {
-    padding: 8px;
+input[type="text"],
+input[type="number"],
+input[type="checkbox"],
+textarea {
+    padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 button {
-    padding: 8px 20px;
+    padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    background-color: #ff91a4; /* Lighter pastel pink */
+    background-color: #ff91a4;
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-left: 10px; /* Add margin to space out button from input */
 }
 
 button:hover {
-    background-color: #ff748c; /* Darker pastel pink */
+    background-color: #ff748c;
 }
 
 #pet-list div {
@@ -66,7 +86,7 @@ button:hover {
 }
 
 footer {
-    background-color: #ffb6c1; /* Same pastel pink as header */
+    background-color: #ffb6c1;
     color: #ffffff;
     text-align: center;
     padding: 20px 0;
@@ -83,13 +103,13 @@ footer {
 }
 
 .pet {
-    background-color: #ffb6c1; /* Pastel pink */
+    background-color: #ffb6c1;
     color: #ffffff;
     border-radius: 10px;
     padding: 15px;
     margin: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 300px; /* Limit width to avoid too wide pet containers */
+    max-width: 300px;
 }
 
 .pet h3 {
@@ -108,7 +128,7 @@ footer {
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     max-width: 400px;
-    margin: auto;
+    margin: 20px auto;
 }
 
 .add-pet-form label {
@@ -116,8 +136,13 @@ footer {
     margin-bottom: 5px;
 }
 
-.add-pet-form input[type="text"], 
-.add-pet-form input[type="number"], 
+.add-pet-form .input-container {
+    width: 95%;
+}
+
+.add-pet-form input[type="text"],
+.add-pet-form input[type="number"],
+.add-pet-form textarea,
 .add-pet-form button {
     width: 100%;
     padding: 10px;
@@ -131,15 +156,12 @@ footer {
 }
 
 .add-pet-form button {
-    background-color: #ff91a4; /* Lighter pastel pink */
+    background-color: #ff91a4;
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .add-pet-form button:hover {
-    background-color: #ff748c; /* Darker pastel pink */
+    background-color: #ff748c;
 }
-
-
-

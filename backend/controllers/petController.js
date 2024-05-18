@@ -27,7 +27,7 @@ module.exports.petsByBreed = (req, res) => {
     });
 };
 
-module.exports.createPet = async (req, res) => {
+module.exports.createPet = (req, res) => {
   const { breed, gender, age, description, isAdopted } = req.body;
 
   // Create a new pet instance
@@ -40,13 +40,44 @@ module.exports.createPet = async (req, res) => {
   });
 
   try {
-    // Save the new pet to the database
-    const savedPet = await newPet.save();
-    res.status(201).json(savedPet);
+    const savedPet = newPet.save();
+    res.status(201).json({ "new pet": newPet });
   } catch (error) {
-    console.error("Error creating pet:", error);
     res.status(500).json({ error: error.message || "Internal Server Error" });
   }
 };
 
+module.exports.updatePet = async (req, res) => {
+  const petId = req.params.id;
+  const updatedData = req.body;
 
+  console.log("Received Update Data:", updatedData); // Log received data
+
+  try {
+    const updatedPet = await Pet.findByIdAndUpdate(petId, updatedData, {
+      new: true,
+    });
+    if (!updatedPet) {
+      return res.status(404).json({ message: "Pet not found" });
+    }
+    res.status(200).json(updatedPet);
+  } catch (error) {
+    res.status(500).json({ error: error.message || "Internal Server Error" });
+  }
+};
+
+module.exports.deletePet = async (req, res) => {
+  const petId = req.params.id;
+
+  try {
+    const deletedPet = await Pet.findByIdAndDelete(petId);
+    if (!deletedPet) {
+      return res
+        .status(404)
+        .json({ message: "Pet not found or already deleted" });
+    }
+    res.status(200).json({ message: "Pet deleted successfully", deletedPet });
+  } catch (error) {
+    res.status(500).json({ error: error.message || "Internal Server Error" });
+  }
+};
