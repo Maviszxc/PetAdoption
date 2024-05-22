@@ -1,25 +1,28 @@
 document.addEventListener("DOMContentLoaded", function () {
   document
     .getElementById("update-pet-form")
-    .addEventListener("submit", (event) => {
+    .addEventListener("submit", function (event) {
       event.preventDefault();
 
-      const petId = document.getElementById("pet-id").value;
-      const breed = document.getElementById("breed").value;
-      const gender = document.getElementById("gender").value;
-      const age = document.getElementById("age").value;
-      const description = document.getElementById("description").value;
-      const isAdopted = document.getElementById("is-adopted").checked;
+      const petId = document.getElementById("update-pet-id").value.trim();
+      const breed = document.getElementById("update-breed").value.trim();
+      const gender = document.getElementById("update-gender").value.trim();
+      const age = parseInt(
+        document.getElementById("update-age").value.trim(),
+        10
+      );
+      const description = document
+        .getElementById("update-description")
+        .value.trim();
+      const isAdopted = document.getElementById("update-is-adopted").checked;
 
-      // Debug: Log retrieved values
-      console.log("Pet ID:", petId);
-      console.log("Breed:", breed);
-      console.log("Gender:", gender);
-      console.log("Age:", age);
-      console.log("Description:", description);
-      console.log("Is Adopted:", isAdopted);
-
-      const updatedPet = { breed, gender, age, description, isAdopted };
+      const updatedPet = {
+        breed,
+        gender,
+        age,
+        description,
+        isAdopted,
+      };
 
       fetch(`http://localhost:4000/api/v1/pets/update/${petId}`, {
         method: "PUT",
@@ -30,23 +33,19 @@ document.addEventListener("DOMContentLoaded", function () {
       })
         .then((response) => {
           if (!response.ok) {
-            throw new Error("Network response was not ok");
+            return response.json().then((error) => {
+              throw new Error(error.message || "Failed to update pet");
+            });
           }
           return response.json();
         })
         .then((data) => {
           const messageElement = document.getElementById("update-message");
-          if (data.error) {
-            messageElement.textContent = `Error: ${data.error}`;
-            messageElement.style.color = "red";
-          } else {
-            messageElement.textContent = `Pet updated successfully: ${JSON.stringify(
-              data
-            )}`;
-            messageElement.style.color = "green";
-            // Debug: Log server response
-            console.log("Server Response: ", data);
-          }
+          messageElement.textContent = `Pet updated successfully: ${JSON.stringify(
+            data
+          )}`;
+          messageElement.style.color = "green";
+          updatePetDetailsInDOM(data);
         })
         .catch((error) => {
           const messageElement = document.getElementById("update-message");
@@ -55,3 +54,22 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+function updatePetDetailsInDOM(updatedPet) {
+  const petElement = document.getElementById(`pet-${updatedPet._id}`);
+  if (petElement) {
+    petElement.querySelector(
+      ".pet-breed"
+    ).textContent = `Breed: ${updatedPet.breed}`;
+    petElement.querySelector(
+      ".pet-gender"
+    ).textContent = `Gender: ${updatedPet.gender}`;
+    petElement.querySelector(".pet-age").textContent = `Age: ${updatedPet.age}`;
+    petElement.querySelector(
+      ".pet-description"
+    ).textContent = `Description: ${updatedPet.description}`;
+    petElement.querySelector(".pet-is-adopted").textContent = `Is Adopted: ${
+      updatedPet.isAdopted ? "Yes" : "No"
+    }`;
+  }
+}

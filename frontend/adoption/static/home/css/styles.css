@@ -90,9 +90,9 @@ section {
   }
 }
 
-/* body {
+body {
   height: 300rem;
-} */
+}
 
 .header {
   background-color: var(--white);

@@ -29,58 +29,62 @@
 
     <!-- Add Pet -->
 
-    <div class="add-pet-form">
-      <h2>Add a New Pet</h2>
-      <form id="add-pet-form">
-        <div class="input-container">
-          <label for="breed">Breed:</label>
-          <input type="text" id="breed" name="breed" required />
-        </div>
-        <div class="input-container">
-          <label for="gender">Gender:</label>
-          <input type="text" id="gender" name="gender" required />
-        </div>
-        <div class="input-container">
-          <label for="age">Age:</label>
-          <input type="text" id="age" name="age" required />
-        </div>
-        <div class="input-container">
-          <label for="description">Description:</label>
-          <input type="text" id="description" name="description" required />
-        </div>
-        <button type="submit">Add Pet</button>
-      </form>
-      <div id="message"></div>
-    </div>
+    <!-- Add New Pet -->
+    <h2>Add New Pet</h2>
+    <form id="add-pet-form" enctype="multipart/form-data">
+      <label for="breed">Breed:</label>
+      <input type="text" id="breed" name="breed" required />
+
+      <label for="gender">Gender:</label>
+      <input type="text" id="gender" name="gender" required />
+
+      <label for="age">Age:</label>
+      <input type="text" id="age" name="age" required />
+
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" required></textarea>
+
+      <label for="image">Image:</label>
+      <input type="file" id="image" name="image" accept="image/*" required />
+
+      <button type="submit">Add Pet</button>
+    </form>
+
+    <div id="message"></div>
 
     <!-- Update Pet -->
 
-    <div class="add-pet-form">
+    <div class="update-pet-form">
       <h2>Update Pet</h2>
       <form id="update-pet-form">
         <div class="input-container">
-          <label for="pet-id">Pet ID:</label>
-          <input type="text" id="pet-id" name="pet-id" required />
+          <label for="update-pet-id">Pet ID:</label>
+          <input type="text" id="update-pet-id" name="pet-id" required />
         </div>
         <div class="input-container">
-          <label for="breed">Breed:</label>
-          <input type="text" id="breed" name="breed" required />
+          <label for="update-breed">Breed:</label>
+          <input type="text" id="update-breed" name="breed" required />
         </div>
         <div class="input-container">
-          <label for="gender">Gender:</label>
-          <input type="text" id="gender" name="gender" required />
+          <label for="update-gender">Gender:</label>
+          <input type="text" id="update-gender" name="gender" required />
         </div>
         <div class="input-container">
-          <label for="age">Age:</label>
-          <input type="text" id="age" name="age" required />
+          <label for="update-age">Age:</label>
+          <input type="text" id="update-age" name="age" required />
         </div>
         <div class="input-container">
-          <label for="description">Description:</label>
-          <input type="text" id="description" name="description" required />
+          <label for="update-description">Description:</label>
+          <input
+            type="text"
+            id="update-description"
+            name="description"
+            required
+          />
         </div>
         <div class="input-container">
-          <label for="is-adopted">Is Adopted:</label>
-          <input type="checkbox" id="is-adopted" name="is-adopted" />
+          <label for="update-is-adopted">Is Adopted:</label>
+          <input type="checkbox" id="update-is-adopted" name="is-adopted" />
         </div>
         <button type="submit">Update Pet</button>
       </form>

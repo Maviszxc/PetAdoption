@@ -1,10 +1,10 @@
 document
   .getElementById("delete-pet-form")
   .addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent form submission
+    event.preventDefault(); 
     const petId = document.getElementById("delete-pet-id").value.trim();
     if (!petId) {
-      // Handle empty input
+      
       return;
     }
     deletePet(petId);
@@ -24,7 +24,7 @@ function deletePet(petId) {
       console.log("Pet deleted successfully:", data);
       document.getElementById("delete-message").textContent =
         "Pet deleted successfully.";
-      // Optionally, refresh the pet list or remove the pet from the UI
+      
     })
     .catch((error) => {
       console.error("Error deleting pet:", error);

@@ -13,10 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("Data received:", data);
       const petList = document.getElementById("pet-list");
 
-      // Clear any existing content in the pet-list
       petList.innerHTML = "";
 
-      // Check if data is not empty
       if (data.length === 0) {
         petList.innerHTML = "<p>No pets found.</p>";
         return;

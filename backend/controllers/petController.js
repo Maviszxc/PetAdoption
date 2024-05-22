@@ -1,11 +1,59 @@
-const Pet = require("../models/petSchema");
+const Pet = require("../models/petSchema"); // Ensure the path is correct
 
-const mongoose = require("mongoose");
+const multer = require("multer");
+const path = require("path");
+
+// Multer storage configuration
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const uploadPath = path.join(__dirname, "../uploads/");
+    cb(null, uploadPath);
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}_${file.originalname}`);
+  },
+});
+
+const upload = multer({ storage });
+
+// Export upload middleware
+module.exports.upload = upload;
+
+// Create Pet Controller
+module.exports.createPet = async (req, res) => {
+  try {
+    const { breed, gender, age, description } = req.body;
+    const imageUrl = req.file ? req.file.path : null;
+    if (!imageUrl) {
+      return res.status(400).json({ message: "Image is required" });
+    }
+
+    const newPet = new Pet({
+      breed,
+      gender,
+      age,
+      description,
+      image: imageUrl,
+      isAdopted: false,
+    });
+
+    const savedPet = await newPet.save();
+    res.status(201).json({ "new pet": savedPet });
+  } catch (error) {
+    res.status(500).json({ error: error.message || "Internal Server Error" });
+  }
+};
 
 module.exports.pets = (req, res) => {
   Pet.find({ isAdopted: false })
     .then((pets) => res.send(pets))
     .catch((error) => res.send(error));
+};
+
+module.exports.fetchPets = (req, res) => {
+  Pet.find({})
+    .then((pets) => res.status(200).json(pets))
+    .catch((error) => res.status(500).json({ error: error.message }));
 };
 
 module.exports.petsByBreed = (req, res) => {
@@ -27,43 +75,21 @@ module.exports.petsByBreed = (req, res) => {
     });
 };
 
-module.exports.createPet = (req, res) => {
+module.exports.updatePet = (req, res) => {
   const { breed, gender, age, description, isAdopted } = req.body;
-
-  // Create a new pet instance
-  const newPet = new Pet({
-    breed,
-    gender,
-    age,
-    description,
-    isAdopted,
-  });
-
-  try {
-    const savedPet = newPet.save();
-    res.status(201).json({ "new pet": newPet });
-  } catch (error) {
-    res.status(500).json({ error: error.message || "Internal Server Error" });
-  }
-};
-
-module.exports.updatePet = async (req, res) => {
   const petId = req.params.id;
-  const updatedData = req.body;
+  const updatedFields = { breed, gender, age, description, isAdopted };
 
-  console.log("Received Update Data:", updatedData); // Log received data
-
-  try {
-    const updatedPet = await Pet.findByIdAndUpdate(petId, updatedData, {
-      new: true,
-    });
-    if (!updatedPet) {
-      return res.status(404).json({ message: "Pet not found" });
-    }
-    res.status(200).json(updatedPet);
-  } catch (error) {
-    res.status(500).json({ error: error.message || "Internal Server Error" });
-  }
+  Pet.findByIdAndUpdate(petId, updatedFields, { new: true })
+    .then((updatedPet) => {
+      if (!updatedPet) {
+        return res.status(404).json({ error: "Pet not found" });
+      }
+      res.status(200).json(updatedPet);
+    })
+    .catch((error) =>
+      res.status(500).json({ error: error.message || "Internal Server Error" })
+    );
 };
 
 module.exports.deletePet = async (req, res) => {

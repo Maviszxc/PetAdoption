@@ -16,12 +16,17 @@ const petDocument = new Schema({
 
   age: {
     type: String,
-    required: [true, "age is required"],
+    required: [true, "Age is required"],
   },
 
   description: {
     type: String,
     required: [true, "Description is needed"],
+  },
+
+  image: {
+    type: String,
+    required: [true, "Image is needed"]
   },
 
   isAdopted: { // active
